@@ -9,7 +9,11 @@ class PlayerController extends GetxController {
 
   //cancion a reproducir
   final Rx<TrackModel?> cancion = Rx<TrackModel?>(null);
-  
+
+  // lista actual y posición en ella
+  List<TrackModel> _lista = [];
+  int _indiceActual = 0;
+
   //flag cuando esta reproduciendo una cancion
   final RxBool estaReproduciendo = false.obs;
 
@@ -59,9 +63,23 @@ class PlayerController extends GetxController {
   }
 
   /// Reproduce una canción (público para llamar desde la vista).
-  void reproducir(TrackModel track) {
+  void reproducir(TrackModel track, {List<TrackModel>? lista, int? indice}) {
+    if (lista != null) _lista = lista;
+    if (indice != null) _indiceActual = indice;
     cancion.value = track;
     _cargarYReproducir(track);
+  }
+
+  void cancionAnterior() {
+    if (_lista.isEmpty || _indiceActual <= 0) return;
+    _indiceActual--;
+    reproducir(_lista[_indiceActual]);
+  }
+
+  void cancionSiguiente() {
+    if (_lista.isEmpty || _indiceActual >= _lista.length - 1) return;
+    _indiceActual++;
+    reproducir(_lista[_indiceActual]);
   }
 
   Future<void> alternarPlayPause() async {

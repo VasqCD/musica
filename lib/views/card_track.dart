@@ -1,9 +1,8 @@
 
-import 'dart:developer';
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musica/controllers/home_controller.dart';
 import 'package:musica/controllers/player_controller.dart';
 import 'package:musica/models/track_model.dart';
 import 'package:musica/views/description_track.dart';
@@ -16,15 +15,17 @@ class CardTrack extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: (){
-          //consultamos si no esta registrado o inyectado nuestro controlador
-        if (!Get.isRegistered<PlayerController>()){
-          inspect('dentro');
+      onTap: () {
+        if (!Get.isRegistered<PlayerController>()) {
           Get.put(PlayerController());
         }
-
-          Get.find<PlayerController>().reproducir(cancion);
-          Get.to(() => DescriptionTrack());
+        final home = Get.find<HomeController>();
+        final lista = home.ultimaBusqueda.isNotEmpty
+            ? home.canciones.toList()
+            : home.cancionesPopulares.toList();
+        final indice = lista.indexOf(cancion);
+        Get.find<PlayerController>().reproducir(cancion, lista: lista, indice: indice);
+        Get.to(() => DescriptionTrack());
       },
       child: ListTile(
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),

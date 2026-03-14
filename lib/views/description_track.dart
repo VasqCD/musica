@@ -139,10 +139,13 @@ class DescriptionTrack extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  IconButton(
-                    iconSize: 40,
-                    icon: const Icon(Icons.skip_previous),
-                    onPressed: controller.reiniciar,
+                  GestureDetector(
+                    onDoubleTap: controller.cancionAnterior,
+                    child: IconButton(
+                      iconSize: 40,
+                      icon: const Icon(Icons.skip_previous),
+                      onPressed: controller.reiniciar,
+                    ),
                   ),
                   const SizedBox(width: 16),
                   controller.cargando.value
@@ -158,10 +161,13 @@ class DescriptionTrack extends StatelessWidget {
                           onPressed: controller.alternarPlayPause,
                         ),
                   const SizedBox(width: 16),
-                  IconButton(
-                    iconSize: 40,
-                    icon: const Icon(Icons.skip_next),
-                    onPressed: controller.adelantar,
+                  GestureDetector(
+                    onDoubleTap: controller.cancionSiguiente,
+                    child: IconButton(
+                      iconSize: 40,
+                      icon: const Icon(Icons.skip_next),
+                      onPressed: controller.adelantar,
+                    ),
                   ),
                 ],
               ),
