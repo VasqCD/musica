@@ -13,25 +13,48 @@ class SearchBarCustom extends StatefulWidget {
 
 class _SearchBarCustomState extends State<SearchBarCustom> {
 
-  void _alBuscar(String valor){
-    setState(() { });
+  final TextEditingController _textoController = TextEditingController();
+
+  @override
+  void dispose() {
+    _textoController.dispose();
+    super.dispose();
+  }
+
+  void _alBuscar(String valor) {
+    setState(() {});
     widget.homeController.buscarCancionDebounce(valor);
+  }
+
+  void _limpiar() {
+    _textoController.clear();
+    setState(() {});
+    widget.homeController.buscarCancionDebounce('');
   }
 
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final hayTexto = _textoController.text.isNotEmpty;
+
     return Container(
       margin: EdgeInsets.only(top: 16),
       decoration: BoxDecoration(
-        color: colorScheme.surfaceContainerHighest,// pequeño resalte, segun el tema de la aplicacion
+        color: colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(2)
       ),
       child: TextField(
-        onChanged: _alBuscar, //metodo que dispara la accion
+        controller: _textoController,
+        onChanged: _alBuscar,
         decoration: InputDecoration(
           hintText: 'Buscar artistas',
-          prefixIcon: Icon(Icons.search, color: colorScheme.onSurfaceVariant,),
+          prefixIcon: Icon(Icons.search, color: colorScheme.onSurfaceVariant),
+          suffixIcon: hayTexto
+              ? IconButton(
+                  icon: Icon(Icons.close, color: colorScheme.onSurfaceVariant),
+                  onPressed: _limpiar,
+                )
+              : null,
           hintStyle: TextStyle(color: colorScheme.onSurfaceVariant),
           labelText: 'Buscar canciones',
           border: InputBorder.none,
@@ -42,4 +65,3 @@ class _SearchBarCustomState extends State<SearchBarCustom> {
     );
   }
 }
-
