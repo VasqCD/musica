@@ -31,12 +31,12 @@ class CardTrack extends StatelessWidget {
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 4),
         leading: ClipRRect(
           borderRadius: BorderRadius.circular(8),
-          child: cancion.artistViewUrl != null && cancion.artistViewUrl!.isNotEmpty
+          child: cancion.artworkUrl60 != null && cancion.artworkUrl60!.isNotEmpty
               ? CachedNetworkImage(
-                  imageUrl: cancion.artistViewUrl!,
+                  imageUrl: cancion.artworkUrl60!,
                   width: 56,
                   height: 56,
-                  fit: BoxFit.contain,
+                  fit: BoxFit.cover,
                   placeholder: (_, __) => _placeholderAlbum(context),
                   errorWidget: (_, __, ___) => _placeholderAlbum(context),
                 )
