@@ -77,6 +77,16 @@ class PlayerController extends GetxController {
     await _reproductor.seek(pos);
   }
 
+  Future<void> reiniciar() async {
+    await _reproductor.seek(Duration.zero);
+  }
+
+  Future<void> adelantar({int segundos = 10}) async {
+    final nueva = posicion.value + Duration(seconds: segundos);
+    final limite = duracion.value ?? Duration.zero;
+    await _reproductor.seek(nueva < limite ? nueva : limite);
+  }
+
   @override
   void onClose() {
     _reproductor.dispose();

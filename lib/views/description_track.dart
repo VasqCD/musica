@@ -142,7 +142,7 @@ class DescriptionTrack extends StatelessWidget {
                   IconButton(
                     iconSize: 40,
                     icon: const Icon(Icons.skip_previous),
-                    onPressed: null,
+                    onPressed: controller.reiniciar,
                   ),
                   const SizedBox(width: 16),
                   controller.cargando.value
@@ -161,7 +161,7 @@ class DescriptionTrack extends StatelessWidget {
                   IconButton(
                     iconSize: 40,
                     icon: const Icon(Icons.skip_next),
-                    onPressed: null,
+                    onPressed: controller.adelantar,
                   ),
                 ],
               ),
