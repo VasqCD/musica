@@ -57,14 +57,14 @@ class CardTrack extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              cancion.trackTimeMillis.toString(),
+              '${(cancion.trackTimeMillis ~/ 60000)}:${((cancion.trackTimeMillis % 60000) ~/ 1000).toString().padLeft(2, '0')}',
               style: TextStyle(
                 fontSize: 13,
               ),
             ),
             const SizedBox(width: 8),
             IconButton(
-              icon: const Icon(Icons.play_circle_outline),
+              icon: const Icon(Icons.play_circle_outline, color: Colors.green),
               onPressed: null,
             ),
           ],
