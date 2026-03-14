@@ -30,7 +30,7 @@ class HomeController extends GetxController {
 
   Future<void> cargarPopulares() async {
     try {
-      final resultados = await _servicio.buscarCanciones('popular', limite: 20);
+      final resultados = await _servicio.buscarCanciones('rock', limite: 20, atributo: 'genreTerm');
       cancionesPopulares.value = resultados;
     } catch (e) {
       mensajeError.value = 'Error al cargar canciones populares';
