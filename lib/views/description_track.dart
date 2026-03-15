@@ -2,7 +2,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:musica/controllers/album_controller.dart';
 import 'package:musica/controllers/player_controller.dart';
+import 'package:musica/views/albums_view.dart';
 
 class DescriptionTrack extends StatelessWidget {
   const DescriptionTrack({super.key});
@@ -91,7 +93,26 @@ class DescriptionTrack extends StatelessWidget {
                 textAlign: TextAlign.center,
               ),
 
-              const SizedBox(height: 32),
+              const SizedBox(height: 8),
+
+              // Botón ver álbumes del artista
+              TextButton.icon(
+                icon: const Icon(Icons.library_music, color: Colors.green),
+                label: const Text(
+                  'Ver álbumes del artista',
+                  style: TextStyle(color: Colors.green),
+                ),
+                onPressed: () {
+                  Get.delete<AlbumController>(force: true);
+                  Get.put(AlbumController(
+                    artistId: cancion.artistId,
+                    artistName: cancion.artistName,
+                  ));
+                  Get.to(() => const AlbumsView());
+                },
+              ),
+
+              const SizedBox(height: 16),
 
               // Slider de progreso
               SliderTheme(
